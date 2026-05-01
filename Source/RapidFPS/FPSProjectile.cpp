@@ -24,7 +24,20 @@ AFPSProjectile::AFPSProjectile()
         RootComponent = CollisionComponent;
     }
 
+
+if (!ProjectileMovementComponent)
+{
+    // Use this component to drive this projectile's movement.
+    ProjectileMovementComponent = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("ProjectileMovementComponent"));
+    ProjectileMovementComponent->SetUpdatedComponent(CollisionComponent);
+    ProjectileMovementComponent->InitialSpeed = 3000.0f;
+    ProjectileMovementComponent->MaxSpeed = 3000.0f;
+    ProjectileMovementComponent->bRotationFollowsVelocity = true;
+    ProjectileMovementComponent->bShouldBounce = true;
+    ProjectileMovementComponent->Bounciness = 0.3f;
+    ProjectileMovementComponent->ProjectileGravityScale = 0.0f;
 }
+    }
 
 // Called when the game starts or when spawned
 void AFPSProjectile::BeginPlay()
@@ -38,5 +51,11 @@ void AFPSProjectile::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+}
+
+// Function that initializes the projectile's velocity in the shoot direction.
+void AFPSProjectile::FireInDirection(const FVector& ShootDirection)
+{
+    ProjectileMovementComponent->Velocity = ShootDirection * ProjectileMovementComponent->InitialSpeed;
 }
 
