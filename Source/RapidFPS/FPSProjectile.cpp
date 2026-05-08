@@ -43,8 +43,8 @@ if (!ProjectileMovementComponent)
 }
 
 
-// Delete the projectile after 3 seconds.
-InitialLifeSpan = 3.0f;
+// Delete the projectile after 30 seconds.
+InitialLifeSpan = 30.0f;
 
     }
 
